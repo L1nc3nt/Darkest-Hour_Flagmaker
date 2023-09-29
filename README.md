@@ -1,7 +1,17 @@
 # Darkest-Hour_Flagmaker
 ## A Python script that makes flag graphics for Darkest Hour and other old Paradox Interactive games.
 
-Put the flag files you want in the input folder with the 3 letter **TAG** as the file name!
+To run you must have some version of Python 3 and PIL or Python Imaging Library for short,
+
+- to install PIL run your cmd and then type in cd "[YOUR PYTHON FOLDER PATH]"python pip -m install PIP
+
+- after that create a batch file or run this through your cmd: 
+
+	- cd "[Where ever this folder is]"
+
+	- "[YOUR PYTHON FOLDER PATH]\python.exe" Flagmaker.py
+
+- Put the flag files you want in the input folder with the 3 letter **TAG** as the file name!
 
 If you have a dark flag I recommend increasing the brightness; using luminosity curves preferably, for best results.
 
