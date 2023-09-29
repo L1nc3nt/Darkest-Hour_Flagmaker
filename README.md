@@ -1,5 +1,5 @@
 # Darkest-Hour_Flagmaker
-##-= A Python script that makes flag graphics for Darkest Hour and other old Paradox Interactive games. =-
+## A Python script that makes flag graphics for Darkest Hour and other old Paradox Interactive games.
 
 Put the flag files you want in the input file with the 3 letter TAG as the file name!
 
