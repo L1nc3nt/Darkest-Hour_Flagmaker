@@ -92,7 +92,7 @@ def imaging(img_source: str):
 	T_.convert('RGBA')
 	main.F_.paste(T_,(0,0), mask=T_)
 #	main.F_.quantize(colors=256, method=2, kmeans=2, dither=False)
-	main.F_.save(f'output\\flag\\{img_source[0:-1-3]}.bmp',bits=8, optimize=True)
+	main.F_.save(f'output\\flag\\{img_source[0:-1-3]}.bmp',bits=24, optimize=True)
 
 #	T_.save(f'0flag_output.png',bits=8, optimize=True)
 #	for i in range(len(D1_U2)):
