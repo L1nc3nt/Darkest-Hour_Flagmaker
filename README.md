@@ -21,8 +21,9 @@ I've included 4 shield styles:
 
 ![](Shield_Blank.png "Hearts of Iron 2")![](Shield_BlankDH.png "Darkest Hour FULL")
 ![](Shield_BlankEU.png "EU3 complete(based on the forum avatars)")![](Shield_Blankvc.png "Victoria 1")
+![](Shield_Blankhoi3.png "Hearts of Iron 3 style")
 
-Hearts of Iron 2, Darkest Hour FULL, EU3 complete(based on the forum avatars), and Victoria 1.
+Hearts of Iron 2, Darkest Hour FULL, EU3 complete(based on the forum avatars), Victoria 1, and Hearts of Iron 3 style!
 
 To use these just rename the shield files to Shield_Blank.png and Shield_SCREEN.png, if you don't want to use screen just use a blank png.
 
