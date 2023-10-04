@@ -3,13 +3,30 @@ from PIL import Image, ImageChops, ImagePalette, ImageFilter
 from PIL import ImageFilter
 
 def main():
-	onoff = input("Press 1 to Quit: ")
+	d: bool = False
+	s: int = 0
+	onoff = input("Press 1 to Quit:\nPress 2 for Dithered Flags: ")
 	if onoff == "1":
 		quit
-	else:
-		start()
+	elif onoff == "2":
+		d: bool = True
+	onoff = input("\nPress 1 to Quit:\nPress 2 for HoI2:\nPress 3 for DH:\n"+
+	 "Press 4 for Vic1:\nPress 5 for EU3 style:\nPress 6 for HoI3 style: ")
+	if onoff == "1":
+		quit
+	elif onoff == "2":
+		s = 0
+	elif onoff == "3":
+		s = 1
+	elif onoff == "4":
+		s = 2
+	elif onoff == "5":
+		s = 3
+	elif onoff == "6":
+		s = 4
+	start(d,s)
 
-def start():
+def start(d,s):
 	list_dir = listdir('input')
 #	list_dir = [f.lower() for f in list_dir]
 	sorted(list_dir)
@@ -17,11 +34,11 @@ def start():
 		print(i)
 		print(list_dir[i])
 		try:
-			imaging(list_dir[i])
+			imaging(list_dir[i],d,s)
 		except Exception as e:
 			print(f"Failed! \n {e}")
 
-def imaging(img_source: str):
+def imaging(img_source: str, dith: bool, _shield: int):
 	try: #Load image!
 		imb = Image.open(f"input\\{img_source}")
 		imb = imb.convert('RGB')
@@ -37,17 +54,35 @@ def imaging(img_source: str):
 	S_img.paste(imbS,(0,132))
 	S_img = S_img.transpose(Image.ROTATE_270)
 	S_img = S_img.convert('RGB')
-	_S = Image.open(f"Shield_Blank.png")
+	if _shield == 0:
+		_S = Image.open(f"Shield_Blank.png")
+	elif _shield == 1:
+		_S = Image.open(f"Shield_BlankDH.png")
+	elif _shield == 2:
+		_S = Image.open(f"Shield_Blankvc.png")
+	elif _shield == 3:
+		_S = Image.open(f"Shield_BlankEU.png")
+	elif _shield == 4:
+		_S = Image.open(f"Shield_Blankhoi3.png")
 	_S = _S.convert('RGB')
 	S_img = ImageChops.multiply(S_img,_S)
-	_S = Image.open(f"Shield_SCREEN.png")
+	if _shield == 0:
+		_S = Image.open(f"Shield_SCREEN.png")
+	elif _shield == 1:
+		_S = Image.open(f"Shield_dhSCREEN.png")
+	elif _shield == 2:
+		_S = Image.open(f"Shield_vcSCREEN.png")
+	elif _shield == 3:
+		_S = Image.open(f"Shield_euSCREEN.png")
+	elif _shield == 4:
+		_S = Image.open(f"Shield_hoi3SCREEN.png")
 	S_img = S_img.convert('RGBA')
 	S_img = ImageChops.screen(S_img,_S)
 	_S = _S.convert('RGB')
-	S_img.save(f'output\\shield\\{img_source[0:-1-3]}.bmp',bits=24, optimize=True)
-	_S = Image.open(f'output\\shield\\{img_source[0:-1-3]}.bmp')
+	S_img.save(f'output\\shield\\shield_{img_source[0:-1-3]}.bmp',bits=24, optimize=True)
+	_S = Image.open(f'output\\shield\\shield_{img_source[0:-1-3]}.bmp')
 	_S.convert('RGB')
-	_S.save(f'output\\shield\\{img_source[0:-1-3]}.bmp',bits=24, optimize=True)
+	_S.save(f'output\\shield\\shield_{img_source[0:-1-3]}.bmp',bits=24, optimize=True)
 	imbF = imb.copy()#.convert('RGBA', dither=Image.Dither)
 	imbF = imbF.resize((25,18),resample=Image.BICUBIC)
 	main.F_img = Image.new('RGBA',(700,18),(0,0,0,0))
@@ -84,15 +119,25 @@ def imaging(img_source: str):
 	crop_and_chop(D2_U1,3,(0,2))
 	crop_and_chop(D0_U2,2,(0,0))
 	crop_and_chop(D2_U0,2,(0,2))
-	T_ = Image.open(f"FLAG_BLANK.png")
+	if dith == False:
+		T_ = Image.open(f"FLAG_BLANK.png")
+	elif dith == True:
+		T_ = Image.open(f"DITHFLAG_BLANK.png")
 	T_.convert('RGBA')
 	main.F_ = ImageChops.multiply(main.F_,T_)
-#	main.F_.quantize(colors=256, method=0, kmeans=2, dither=255)
 	T_ = Image.open(f"FLAG_GREEN.png")
 	T_.convert('RGBA')
-	main.F_.paste(T_,(0,0), mask=T_)
-#	main.F_.quantize(colors=256, method=2, kmeans=2, dither=False)
-	main.F_.save(f'output\\flag\\{img_source[0:-1-3]}.bmp',bits=24, optimize=True)
+	if dith == False:
+		main.F_.paste(T_,(0,0), mask=T_)
+#	main.F_=main.F_.quantize(colors=256, method=2, kmeans=2, dither=255)
+#	main.F_=main.F_.convert('P',palette=Image.ADAPTIVE,colors=256)
+	if dith == True:
+		main.F_=main.F_.convert('P',palette=Image.ADAPTIVE).quantize(colors=256, method=0, 
+		 kmeans=1, dither=Image.Dither.FLOYDSTEINBERG)
+	main.F_=main.F_.convert('RGB',palette=Image.ADAPTIVE)
+	if dith == True:
+		main.F_.paste(T_,(0,0), mask=T_)
+	main.F_.save(f'output\\flag\\flag_{img_source[0:-1-3]}.bmp', optimize=True)
 
 #	T_.save(f'0flag_output.png',bits=8, optimize=True)
 #	for i in range(len(D1_U2)):
