@@ -25,6 +25,6 @@ I've included 4 shield styles:
 
 Hearts of Iron 2, Darkest Hour FULL, EU3 complete(based on the forum avatars), Victoria 1, and Hearts of Iron 3 style!
 
-To use these just rename the shield files to Shield_Blank.png and Shield_SCREEN.png, if you don't want to use screen just use a blank png.
+To use a custom shielf file just rename the shield file to Shield_Blank.png and use a black Shield_SCREEN.png, if you don't want to use screen just use a blank png.
 
 Enjoy!!
